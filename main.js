@@ -1,6 +1,5 @@
 const sourceCanvas = document.getElementById('source')
 const resultCanvas = document.getElementById('result')
-const fileInput = document.getElementById('file-input')
 const video = document.getElementById('video')
 
 const sourceCtx = sourceCanvas.getContext('2d')
@@ -22,17 +21,25 @@ const updateCanvasSize = () => {
 
 const decel = (x) => 1 - (x - 1) * (x - 1) // easing
 
+let webcamAvailable = false
+
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
   navigator.mediaDevices.getUserMedia({video: true}).then(function (stream) {
-    console.log(stream)
-    //video.src = window.URL.createObjectURL(stream);
     video.srcObject = stream
-    video.play()
+    webcamAvailable = true
+    video.play().catch((e) => {
+      alert('Ah, I see, you are using a mobile (or not?). So you should touch your screen to start camera')
+    })
   })
 }
 
+document.addEventListener('click', () => {
+  if (webcamAvailable) {
+    video.play()
+  }
+})
+
 video.addEventListener('playing', () => {
-  console.log(video.videoWidth)
   imageWidth = Math.floor(video.videoWidth * HEIGHT / video.videoHeight)
   imageHeight = HEIGHT
   updateCanvasSize()
