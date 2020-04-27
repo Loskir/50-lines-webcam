@@ -10,6 +10,8 @@ const HEIGHT = 750
 let imageWidth = 5
 let imageHeight = 5
 
+let pix
+
 const updateCanvasSize = () => {
   video.width = imageWidth
   video.height = imageHeight
@@ -48,27 +50,31 @@ video.addEventListener('playing', () => {
   updateCanvasSize()
 }, false)
 
-const processFrame = () => {
+const p = () => {
   const start = Date.now()
   sourceCtx.drawImage(video, 0, 0, imageWidth, imageHeight)
 
-  const imgd = sourceCtx.getImageData(0, 0, imageWidth, imageHeight)
-  const pix = imgd.data
+  pix = sourceCtx.getImageData(0, 0, imageWidth, imageHeight).data
+  document.getElementById('fps').textContent = (Date.now() - start).toString() + ' draw'
 
-  const h1 = HEIGHT / 50
+  requestAnimationFrame(p)
+}
+
+const processFrame = () => {
+  const start = Date.now()
+
 
   resultCtx.fillStyle = '#ffffff'
+  resultCtx.fillRect(0, 0, imageWidth, imageHeight)
   resultCtx.lineWidth = 2
   resultCtx.lineJoin = 'round'
 
   for (let y = 0; y < 50; ++y) {
-    resultCtx.fillRect(0, h1 * y, imageWidth, h1 * (y + 1))
-
     resultCtx.beginPath()
 
     let l = 0
 
-    for (let x = 0; x < imageWidth; ++x) {
+    for (let x = 0; x < imageWidth; x++) {
       const i = ((y * imageHeight / 50 + 6) * imageWidth + x) * 4
       const c = pix[i + 3] === 0 ? 255 : pix[i] * .3 + pix[i + 1] * .59 + pix[i + 2] * .11
 
@@ -84,9 +90,12 @@ const processFrame = () => {
     resultCtx.stroke()
   }
 
-  document.getElementById('fps').textContent = (1000 / (Date.now() - start)).toString()
+  document.getElementById('fps2').textContent = (Date.now() - start).toString() + ' full'
 
   requestAnimationFrame(processFrame)
 }
 
-const start = () => requestAnimationFrame(processFrame)
+const start = () => {
+  requestAnimationFrame(p)
+  requestAnimationFrame(processFrame)
+}
