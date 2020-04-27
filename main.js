@@ -43,7 +43,7 @@ video.addEventListener('playing', () => {
   imageWidth = Math.floor(video.videoWidth * HEIGHT / video.videoHeight)
   imageHeight = HEIGHT
   updateCanvasSize()
-}, false);
+}, false)
 
 const processFrame = () => {
   sourceCtx.drawImage(video, 0, 0, imageWidth, imageHeight)
@@ -62,7 +62,8 @@ const processFrame = () => {
 
   sourceCtx.putImageData(imgd, 0, 0)
 
-  resultCtx.clearRect(0, 0, imageWidth, imageHeight)
+  resultCtx.fillStyle = '#ffffff'
+  resultCtx.fillRect(0, 0, imageWidth, imageHeight)
 
   for (let y = 0; y < 50; ++y) {
     resultCtx.beginPath()
