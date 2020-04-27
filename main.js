@@ -5,7 +5,7 @@ const video = document.getElementById('video')
 const sourceCtx = sourceCanvas.getContext('2d')
 const resultCtx = resultCanvas.getContext('2d')
 
-const HEIGHT = 700
+const HEIGHT = 750
 
 let imageWidth = 5
 let imageHeight = 5
@@ -54,30 +54,23 @@ const processFrame = () => {
 
   const imgd = sourceCtx.getImageData(0, 0, imageWidth, imageHeight)
   const pix = imgd.data
-  const n = pix.length
 
-  for (let i = 0; i < n; i += 4) {
-    const grayscale = pix[i + 3] === 0 ? 255 : pix[i] * .3 + pix[i + 1] * .59 + pix[i + 2] * .11
-    pix[i] = grayscale
-    pix[i + 1] = grayscale
-    pix[i + 2] = grayscale
-    pix[i + 3] = 255
-  }
-
-  sourceCtx.putImageData(imgd, 0, 0)
+  const h1 = HEIGHT / 50
 
   resultCtx.fillStyle = '#ffffff'
-  resultCtx.fillRect(0, 0, imageWidth, imageHeight)
+  resultCtx.lineWidth = 2
+  resultCtx.lineJoin = 'round'
 
   for (let y = 0; y < 50; ++y) {
+    resultCtx.fillRect(0, h1 * y, imageWidth, h1 * (y + 1))
+
     resultCtx.beginPath()
-    resultCtx.lineWidth = 2
-    resultCtx.lineJoin = 'round'
 
     let l = 0
 
     for (let x = 0; x < imageWidth; ++x) {
-      const c = pix[((y * imageHeight / 50 + 6) * imageWidth + x) * 4]
+      const i = ((y * imageHeight / 50 + 6) * imageWidth + x) * 4
+      const c = pix[i + 3] === 0 ? 255 : pix[i] * .3 + pix[i + 1] * .59 + pix[i + 2] * .11
 
       l += (255 - c) / 255
 
