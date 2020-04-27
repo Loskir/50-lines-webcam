@@ -46,6 +46,7 @@ video.addEventListener('playing', () => {
 }, false)
 
 const processFrame = () => {
+  const start = Date.now()
   sourceCtx.drawImage(video, 0, 0, imageWidth, imageHeight)
 
   const imgd = sourceCtx.getImageData(0, 0, imageWidth, imageHeight)
