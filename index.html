@@ -32,11 +32,31 @@
       right: 0;
       z-index: 10;
     }
+
     #fps2 {
       position: fixed;
       top: 10px;
       right: 0;
       z-index: 10;
+    }
+
+    #touchscreen-popup {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 11;
+
+      display: none;
+
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #touchscreen-popup.shown {
+      display: flex;
     }
   </style>
 </head>
@@ -47,5 +67,8 @@
 <script src="main.js"></script>
 <div id="fps"></div>
 <div id="fps2"></div>
+<div id="touchscreen-popup">
+  <span>Please touch your screen</span>
+</div>
 </body>
 </html>

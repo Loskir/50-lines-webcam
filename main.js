@@ -32,7 +32,7 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     await video.play()
       .then(start)
       .catch((e) => {
-        alert('Ah, I see, you are using a mobile (or not?). So you should touch your screen to start camera')
+        document.getElementById('touchscreen-popup').classList.add('shown')
       })
   })
 }
@@ -41,6 +41,7 @@ document.addEventListener('click', async () => {
   if (webcamAvailable) {
     await video.play()
     start()
+    document.getElementById('touchscreen-popup').classList.remove('shown')
   }
 })
 
