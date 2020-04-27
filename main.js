@@ -24,18 +24,21 @@ const decel = (x) => 1 - (x - 1) * (x - 1) // easing
 let webcamAvailable = false
 
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-  navigator.mediaDevices.getUserMedia({video: true}).then(function (stream) {
+  navigator.mediaDevices.getUserMedia({video: true}).then(async (stream) => {
     video.srcObject = stream
     webcamAvailable = true
-    video.play().catch((e) => {
-      alert('Ah, I see, you are using a mobile (or not?). So you should touch your screen to start camera')
-    })
+    await video.play()
+      .then(start)
+      .catch((e) => {
+        alert('Ah, I see, you are using a mobile (or not?). So you should touch your screen to start camera')
+      })
   })
 }
 
-document.addEventListener('click', () => {
+document.addEventListener('click', async () => {
   if (webcamAvailable) {
-    video.play()
+    await video.play()
+    start()
   }
 })
 
@@ -92,4 +95,5 @@ const processFrame = () => {
 
   requestAnimationFrame(processFrame)
 }
-requestAnimationFrame(processFrame)
+
+const start = () => requestAnimationFrame(processFrame)
