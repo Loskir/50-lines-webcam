@@ -31,13 +31,15 @@
       top: 0;
       right: 0;
       z-index: 10;
+      background: white;
     }
 
     #fps2 {
       position: fixed;
-      top: 10px;
+      top: 15px;
       right: 0;
       z-index: 10;
+      background: white;
     }
 
     #touchscreen-popup {
@@ -58,6 +60,14 @@
     #touchscreen-popup.shown {
       display: flex;
     }
+
+    .subscribe-box {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 10;
+      background: white;
+    }
   </style>
 </head>
 <body>
@@ -69,6 +79,10 @@
 <div id="fps2"></div>
 <div id="touchscreen-popup">
   <span>Please touch your screen</span>
+</div>
+<div class="subscribe-box">
+  <a href="https://github.com/Loskir/50-lines-webcam" target="_blank" rel="noopener noreferrer">Source</a><br/>
+  Subscribe to my channel: <a href="https://tttttt.me/loskirs" target="_blank" rel="noopener noreferrer">@Loskirs</a>
 </div>
 </body>
 </html>
