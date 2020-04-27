@@ -87,6 +87,8 @@ const processFrame = () => {
     resultCtx.stroke()
   }
 
+  document.getElementById('fps').textContent = (1000 / (Date.now() - start)).toString()
+
   requestAnimationFrame(processFrame)
 }
 requestAnimationFrame(processFrame)

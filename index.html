@@ -25,6 +25,13 @@
       justify-content: center;
       height: 100vh;
     }
+
+    #fps {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 10;
+    }
   </style>
 </head>
 <body>
@@ -32,5 +39,6 @@
 <canvas id="source"></canvas>
 <canvas id="result"></canvas>
 <script src="main.js"></script>
+<div id="fps"></div>
 </body>
 </html>
